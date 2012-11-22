@@ -1,0 +1,39 @@
+{
+    "name": "rithis/page-bundle",
+    "description": "Простой бандл для работы со статическими страницами",
+    "type": "symfony-bundle",
+    "keywords": ["symfony2", "bundle", "page"],
+    "homepage": "https://github.com/rithis/RithisPageBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vyacheslav Slinko",
+            "email": "vyacheslav.slinko@rithis.com",
+            "role": "Founder"
+        }
+    ],
+    "support": {
+        "email": "support@rithis.com",
+        "issues": "https://github.com/rithis/RithisPageBundle/issues",
+        "wiki": "https://github.com/rithis/RithisPageBundle/wiki",
+        "source": "https://github.com/rithis/RithisPageBundle"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/symfony": "2.1.*",
+        "doctrine/orm": "2.3.*",
+        "doctrine/doctrine-bundle": "1.0.*",
+        "jms/di-extra-bundle": "@dev",
+        "stof/doctrine-extensions-bundle": "@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "behat/symfony2-extension": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Rithis\\PageBundle": ""
+        }
+    },
+    "target-dir": "Rithis/PageBundle"
+}

@@ -1,0 +1,9 @@
+default:
+    extensions:
+        Behat\Symfony2Extension\Extension:
+            bundle: RithisPageBundle
+            kernel:
+                bootstrap: Resources/app/autoload.php
+                path: Resources/app/AppKernel.php
+            context:
+                path_suffix: Resources/features
