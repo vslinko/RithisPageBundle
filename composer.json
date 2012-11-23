@@ -29,6 +29,7 @@
     "require-dev": {
         "phpunit/phpunit": "*",
         "behat/symfony2-extension": "*",
+        "behat/common-contexts": "@dev",
         "knplabs/knp-menu-bundle": "@dev"
     },
     "suggest": {
