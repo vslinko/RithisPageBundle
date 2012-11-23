@@ -2,6 +2,9 @@
 
 namespace Rithis\PageBundle\Twig;
 
+use Twig_Function_Method,
+    Twig_Extension;
+
 use JMS\DiExtraBundle\Annotation as DI;
 
 use Doctrine\ORM\EntityManager;
@@ -10,7 +13,7 @@ use Doctrine\ORM\EntityManager;
  * @DI\Service(public=false)
  * @DI\Tag("twig.extension")
  */
-class PageExtension extends \Twig_Extension
+class PageExtension extends Twig_Extension
 {
     private $em;
 
@@ -27,13 +30,25 @@ class PageExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'rithis_page' => new \Twig_Function_Method($this, 'getPage'),
+            'rithis_page' => new Twig_Function_Method($this, 'getPage'),
+        ];
+    }
+
+    public function getTokenParsers()
+    {
+        return [
+            new RithisPageTokenParser(),
         ];
     }
 
     public function getPage(array $tags)
     {
         return $this->em->getRepository('RithisPageBundle:Page')->findOneByTags($tags);
+    }
+
+    public function getDefaultTemplate()
+    {
+        return 'RithisPageBundle:Page:get.html.twig';
     }
 
     public function getName()

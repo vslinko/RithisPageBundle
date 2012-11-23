@@ -53,7 +53,21 @@ stof_doctrine_extensions:
 
 ### В шаблонах
 
+Для вывода страницы со стандартным шаблоном:
+
+```twig
+{% rithis_page ['some_tag'] %}
 ```
+
+Для вывода страницы со своим шаблоном:
+
+```twig
+{% rithis_page ['some_tag'] with template "my_template.html.twig" %}
+```
+
+Для получения страницы:
+
+```twig
 {% set page = rithis_page(['some_tag']) %}
 {{ page.title }}
 ```

@@ -5,6 +5,7 @@ namespace Rithis\PageBundle\Features\Context;
 use Behat\Symfony2Extension\Context\KernelDictionary,
     PHPUnit_Framework_Assert as Assert,
     Behat\Behat\Context\BehatContext,
+    Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
 use Gedmo\Mapping\ExtensionMetadataFactory,
@@ -12,6 +13,10 @@ use Gedmo\Mapping\ExtensionMetadataFactory,
 
 use Rithis\PageBundle\Entity\PageTag,
     Rithis\PageBundle\Entity\Page;
+
+use Twig_Loader_Array,
+    Twig_Loader_Chain,
+    Twig_Environment;
 
 class FeatureContext extends BehatContext
 {
@@ -31,6 +36,16 @@ class FeatureContext extends BehatContext
      * @var Page
      */
     private $page;
+
+    /**
+     * @var \Twig_Loader_Array
+     */
+    private $twigLoader;
+
+    /**
+     * @var string
+     */
+    private $templateOutput;
 
     /**
      * @Given /^я прочел метаданные сущности "([^"]*)"$/
@@ -232,6 +247,42 @@ class FeatureContext extends BehatContext
     public function foundedFromTemplatePageTitleMustEqual($title)
     {
         Assert::assertEquals($title, $this->page->getTitle());
+    }
+
+    /**
+     * @Given /^я сохранил шаблон "([^"]*)" со следующим содержанием:$/
+     */
+    public function saveTemplate($name, PyStringNode $content)
+    {
+        if (!$this->twigLoader) {
+            $this->twigLoader = new Twig_Loader_Array([]);
+
+            /** @var $twig \Twig_Environment */
+            $twig = $this->getContainer()->get('twig');
+
+            $twig->setLoader(new Twig_Loader_Chain([
+                $this->twigLoader,
+                $twig->getLoader()
+            ]));
+        }
+
+        $this->twigLoader->setTemplate($name, $content->getRaw());
+    }
+
+    /**
+     * @Given /^я вывел шаблон "([^"]*)"$/
+     */
+    public function renderTemplate($name)
+    {
+        $this->templateOutput = $this->getContainer()->get('twig')->render($name);
+    }
+
+    /**
+     * @Then /^вывод шаблона должен содержать "([^"]*)"$/
+     */
+    public function templateOutputMustContain($string)
+    {
+        Assert::assertContains($string, $this->templateOutput, "Вхождения нет");
     }
 
     /**
