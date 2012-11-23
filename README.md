@@ -55,19 +55,28 @@ stof_doctrine_extensions:
 
 Для вывода страницы со стандартным шаблоном:
 
-```twig
+```jinja
 {% rithis_page ['some_tag'] %}
 ```
 
 Для вывода страницы со своим шаблоном:
 
-```twig
+```jinja
 {% rithis_page ['some_tag'] with template "my_template.html.twig" %}
 ```
 
 Для получения страницы:
 
-```twig
+```jinja
 {% set page = rithis_page(['some_tag']) %}
 {{ page.title }}
+```
+
+## Генерация меню
+
+Если вы используете KnpMenuBundle, то вы можете вывести меню содержащее страницы с определенными метками:
+
+```jinja
+{% set menuItem = knp_menu_get('RithisPageBundle:PageAwareBuilder:pagesMenu', [], {tags: ["header"]}) %}
+{{ knp_menu_render(menuItem) }}
 ```

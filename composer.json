@@ -28,7 +28,11 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "behat/symfony2-extension": "*"
+        "behat/symfony2-extension": "*",
+        "knplabs/knp-menu-bundle": "@dev"
+    },
+    "suggest": {
+        "knplabs/knp-menu-bundle": "Позволяет генеровать меню содержащее страницы с определенными метками"
     },
     "autoload": {
         "psr-0": {

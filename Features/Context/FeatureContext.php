@@ -278,11 +278,11 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @Then /^вывод шаблона должен содержать "([^"]*)"$/
+     * @Then /^вывод шаблона должен содержать:$/
      */
-    public function templateOutputMustContain($string)
+    public function templateOutputMustContain(PyStringNode $string)
     {
-        Assert::assertContains($string, $this->templateOutput, "Вхождения нет");
+        Assert::assertContains($string->getRaw(), $this->templateOutput, "Вхождения нет");
     }
 
     /**
