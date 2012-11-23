@@ -80,3 +80,26 @@ stof_doctrine_extensions:
 {% set menuItem = knp_menu_get('RithisPageBundle:PageAwareBuilder:pagesMenu', [], {tags: ["header"]}) %}
 {{ knp_menu_render(menuItem) }}
 ```
+
+Или вы можете составить свое комбинированное меню:
+
+```php
+<?php
+
+use Rithis\PageBundle\Menu\PageAwareBuilder,
+    Knp\Menu\FactoryInterface;
+
+class Builder extends PageAwareBuilder
+{
+    public function mainMenu(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('root');
+
+        $this->addPage($menu, ['header']);
+        $menu->addChild('First', ['uri' => '/first']);
+        $this->addPages($menu, ['actions']);
+
+        return $menu;
+    }
+}
+```

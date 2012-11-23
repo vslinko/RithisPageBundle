@@ -1,3 +1,17 @@
+services:
+    rithis.page.menu.composite_builer:
+        class: Rithis\PageBundle\Features\Menu\CompositeBuilder
+        calls:
+            - [setContainer, [@service_container]]
+
+    rithis.page.menu.composite_menu:
+        class: Knp\Menu\MenuItem
+        factory_service: rithis.page.menu.composite_builer
+        factory_method: mainMenu
+        arguments: [@knp_menu.factory, []]
+        tags:
+            - { name: knp_menu.menu, alias: composite }
+
 framework:
     secret: ThisTokenIsNotSoSecretChangeIt
     router: { resource: ~ }
